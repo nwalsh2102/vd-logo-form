@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Vero Design</title>
+
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="title">
+            <h1>Vero Design</h1>
+            <h3>Vero Design is on its way</h3>
+        </div>
+        <div class="form">
+            <h2>Help Design Vero</h2>
+            <h4>Please fill out the following form to help us</h4>
+            <!-- <br> -->
+
+            <form action="send_email.php" class="form" id="form">
+                <div class="name">
+                    <label for="name" class="formLabel">
+                        <p style="display: inline-block;">Name :</p>
+                        <input id="name" type="text" name="name" required>
+                    </label>
+                </div>
+
+                <div class="email">
+                    <label for="email" class="formLabel">
+                        <p style="display: inline-block;">Email :</p>
+                        <input id="email" type="email" name="email" required>
+                    </label>
+                </div>
+
+                <p style="margin-bottom: 50px;">Please choose the logo that looks best to you</p>
+
+                <div class="radio">
+                    <label for="navyImg" class="formLabel">
+                        <img src="imgs/VD-logo-PF.png" alt="Navy Logo" width="100px">
+                        <input id="navyImg" type="radio" value="navy" name="option">
+                    </label>
+                    <label for="beigeImg" class="formLabel">
+                        <img src="imgs/VD-logo-molto.png" alt="Beige Logo" width="100px">
+                        <input id="beigeImg" type="radio" value="beige" name="option">
+                    </label>
+                    <label for="orangeImg" class="formLabel">
+                        <img src="imgs/VD-logo-molto.png" alt="Orange Logo" width="100px">
+                        <input id="orangeImg" type="radio" value="orange" name="option">
+                    </label>
+                    <label for="darkOrangeImg" class="formLabel">
+                        <img src="imgs/VD-logo-molto.png" alt="Dark Orange Logo" width="100px">
+                        <input id="darkOrangeImg" type="radio" value="darkOrange" name="option">
+                    </label>
+                </div>
+
+                <div class="buttons">
+                    <button id="submitBtn" class="button" type="submit">Submit</button>
+                    <button id="resetBtn" class="button" type="reset">Reset</button>
+                </div>
+            </form>
+        </div>
+        <div class="results" id="results"></div>
+    </div>
+
+    <span class="signIn">
+        <a href="submissions">Sign In</a>
+    </span>
+
+    <script src="script.js"></script>
+</body>
+</html>

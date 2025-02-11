@@ -1,0 +1,81 @@
+@font-face {
+    font-family: 'Akira';
+    src: url('fonts/Akira\ Expanded\ Demo.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+  }
+
+body {
+    background-color: #031326;
+    color: #F2F2F2;
+    font-family: Akira;
+    text-align: center;
+}
+
+#table-container {
+  display: flex;
+  justify-content: center;
+}
+
+table {
+  border-collapse: collapse;
+  width: 70%;
+  font-size: small;
+  table-layout: fixed;
+  cursor: pointer;
+}
+
+th, td {
+  border: 1px solid #f2f2f2;
+  padding: 10px;
+  text-align: left;
+}
+
+td {
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+tr:hover {
+  background-color: rgb(163, 163, 163);
+}
+
+.filters {
+  margin-bottom: 30px;
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+}
+
+.input {
+  width: auto;
+  font-size: small;
+  padding: 8px;
+  border: none;
+  border-radius: 5px;
+}
+
+
+button {
+  background-color: #f2f2f2;
+  color: #031326;
+
+  border: none;
+  border-radius: 50px;
+
+  font-weight: bold;
+
+  padding: 10px 20px;
+  margin-top: 30px;
+
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #a4a4a4;
+}
+
+button:active {
+  color: rgb(163, 163, 163);
+  background-color: #031326;
+}

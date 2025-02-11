@@ -1,0 +1,94 @@
+@font-face {
+    font-family: 'Akira';
+    src: url('fonts/Akira\ Expanded\ Demo.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+  }
+
+body {
+    background-color: #031326;
+    color: #F2F2F2;
+    font-family: Akira;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.title, .form, .results {
+    text-align: center;
+}
+
+input[type="radio"] {
+    display: none;
+}
+
+label {
+    cursor: pointer;
+    padding: 10px;
+    margin: 5px;
+}
+
+label:hover {
+    background-color: rgb(163, 163, 163);
+}
+
+label:has(input:checked) {
+    background-color: #F2F2F2;
+    color: #031326;
+}
+
+.name { margin: 10px 0px; }
+
+.email { margin: 0px 0px 25px 0px; }
+
+.buttons {
+    display: flex;
+    justify-content: center;
+    margin: 25px 0px;
+    gap: 10px;
+}
+
+.button {
+    background-color: #F24F13;
+    color: #F2F2F2;
+
+    border: none;
+    border-radius: 50px;
+
+    font-weight: bold;
+
+    padding: 10px 20px;
+
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #A63D17;
+}
+
+button:active {
+    color: rgb(163, 163, 163);
+    background-color: #031326;
+}
+
+.fade-out {
+    opacity: 0;
+}
+
+.signIn {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 0px;
+    padding: 3px;
+
+    opacity: 0;
+}
+
+.signIn:hover {
+    opacity: 0.1;
+}
