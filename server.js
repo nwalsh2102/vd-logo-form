@@ -5,9 +5,40 @@ const session = require('express-session');  // Import express-session
 
 const app = express();
 const port = 3000;
+const submissionsFile = path.join(__dirname, 'submissions.json');
+const loginHistoryFile = path.join(__dirname, 'loginHistory.json');
 const filePath = path.join(__dirname, 'submissions.json');
 const nodemailer = require('nodemailer');
 const { isatty } = require('tty');
+
+function recordLogin(username, req) {
+  const record = {
+    username: username,
+    time: new Date().toISOString(),
+    // use x-forwared-for if available (for proxied requests), or fallback to req.ip
+    ip: req.headers['x-forwarded-for'] || req.ip
+  };
+
+  // Read the existing login history, if any
+  fs.readFile(loginHistoryFile, 'utf8', (err, data) => {
+    let history = [];
+    if (!err && data) {
+      try {
+        history = JSON.parse(data);
+      } catch (parseError) {
+        console.error('Error parsing login history:', parseError);
+      }
+    }
+    // Append the new record
+    history.push(record);
+    // Write back the updated history
+    fs.writeFile(loginHistoryFile, JSON.stringify(history, null, 2), (writeErr) => {
+      if (writeErr) {
+        console.error('Error writing login history:', writeErr)
+      }
+    });
+  });
+}
 
 // Create a transporter object using your email service credentials
 const transporter = nodemailer.createTransport({
@@ -49,6 +80,10 @@ app.post('/login', (req, res) => {
   // Replace these hard-coded credentials with a real user system in production
   if (username === 'admin' && password === 'password') {
     req.session.user = username; // Set the user in session
+
+    // Record the login history
+    recordLogin(username, req);
+
     res.redirect('/submissions'); // Redirect to the protected submissions page
   } else {
     // Redirect back to login with an error query parameter (optional)
@@ -196,6 +231,31 @@ app.get('/logout', (req, res) => {
         }
         res.redirect('/login.html');
     });
+});
+
+app.get('/loginHistory', isAuthenticated, (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'loginHistory.html'));
+});
+
+// Protected route to provide login history data as JSON
+app.get('/loginHistoryData', isAuthenticated, (req, res) => {
+  fs.readFile(loginHistoryFile, 'itf8', (err, data) => {
+    if (err) {
+      if (err.code === 'ENOENT') {
+        return res.json([]); // Return an empty array if no file exits
+      } else {
+        console.error('Error reading login history file:', err);
+        return res.status(500).send('Error reading login history data');
+      }
+    }
+    try {
+      const history = JSON.parse(data);
+      res.json(history);
+    } catch (parseError) {
+      console.error('Error parsing login history:', parseError);
+      res.status(500).send('Error parsing login history data');
+    }
+  });
 });
 
 // Start the server
